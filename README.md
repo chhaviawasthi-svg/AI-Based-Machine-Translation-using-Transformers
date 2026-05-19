@@ -1,38 +1,31 @@
-# 🌐 AI-Based Neural Machine Translation (Seq2Seq Transformer)
+# 🌐 Multilingual Neural Machine Translation (100+ Languages)
 
-A Transformer-based Neural Machine Translation system built **from scratch** using PyTorch, implementing the full encoder-decoder architecture for multilingual text translation.
-
----
-
-## 🚀 Demo
-
-```
-Input  (English): "The model learns from data."
-Output (French) : "Le modèle apprend des données."
-```
+A production-level multilingual Neural Machine Translation system using **facebook/m2m100_418M** (418M parameters), supporting translation across 100+ languages with dual-metric evaluation — BLEU Score and Semantic Similarity.
 
 ---
 
-## 🧠 Architecture
+## 🎯 Demo
 
 ```
-Input Tokens
-     ↓
-[Embedding + Positional Encoding]
-     ↓
-[Encoder Stack]
-  └── Multi-Head Self-Attention
-  └── Feed Forward Network
-  └── Layer Normalization
-     ↓
-[Decoder Stack]
-  └── Masked Multi-Head Self-Attention
-  └── Cross-Attention (Encoder-Decoder)
-  └── Feed Forward Network
-     ↓
-[Linear + Softmax]
-     ↓
-Output Tokens
+===== AI Translator Menu =====
+1. Translate Text
+2. Exit
+
+Enter text: The rapid advancement of technology has transformed the way people communicate.
+Enter target language (fr/de/hi/es/en): de
+
+Translated Output: Die rasante Entwicklung der Technologie hat die Art und Weise verändert...
+Translation Time: 2.847 seconds
+
+Do you want evaluation? (yes/no): yes
+Enter reference translation: ...
+Choose evaluation method:
+1. BLEU Score
+2. Embedding Similarity
+3. Both
+
+BLEU Score: 0.6842
+Embedding Similarity: 0.9134
 ```
 
 ---
@@ -41,29 +34,39 @@ Output Tokens
 
 | Component | Tool |
 |-----------|------|
-| Framework | PyTorch |
-| Pretrained Models & Tokenizers | Hugging Face Transformers |
-| Models Used | mBART, Helsinki-NLP |
-| GPU Acceleration | CUDA |
-| Evaluation Metric | BLEU Score |
-| Environment | Google Colab / PyCharm |
+| Translation Model | `facebook/m2m100_418M` (418M params, 100+ languages) |
+| Tokenizer | `M2M100Tokenizer` (Hugging Face) |
+| Semantic Evaluation | `all-MiniLM-L6-v2` (SentenceTransformer) |
+| BLEU Evaluation | `nltk.translate.bleu_score` |
+| Language Detection | `langdetect` |
+| Similarity Metric | Cosine Similarity (sklearn) |
+| Framework | PyTorch + Hugging Face Transformers |
+| Environment | Google Colab (GPU) |
+
+---
+
+## 🌍 Supported Languages
+
+| Code | Language |
+|------|----------|
+| `en` | English |
+| `fr` | French |
+| `de` | German |
+| `hi` | Hindi |
+| `es` | Spanish |
+| `zh` | Chinese |
+| `ar` | Arabic |
+
+> Model supports 100+ languages total via M2M100 architecture.
 
 ---
 
 ## 📁 Project Structure
 
 ```
-neural-machine-translation/
+multilingual-nmt/
 │
-├── nmt_transformer.ipynb       # Main notebook (Colab)
-├── model/
-│   ├── encoder.py              # Encoder stack
-│   ├── decoder.py              # Decoder stack
-│   ├── attention.py            # Multi-head attention
-│   └── transformer.py          # Full model
-├── utils/
-│   ├── tokenizer.py            # Hugging Face tokenizer wrapper
-│   └── bleu.py                 # BLEU score evaluation
+├── Machine_Translation_Final.ipynb   # Main Colab notebook
 ├── requirements.txt
 └── README.md
 ```
@@ -74,48 +77,53 @@ neural-machine-translation/
 
 ### 1. Clone the repo
 ```bash
-git clone https://github.com/chhaviawasthi-svg/neural-machine-translation.git
-cd neural-machine-translation
+git clone https://github.com/chhaviawasthi-svg/multilingual-nmt.git
+cd multilingual-nmt
 ```
 
 ### 2. Install dependencies
 ```bash
-pip install torch transformers datasets sacrebleu
+pip install transformers sentencepiece langdetect nltk sentence-transformers scikit-learn
 ```
 
 ### 3. Run on Google Colab (Recommended)
-- Open `nmt_transformer.ipynb` in Google Colab
-- Set Runtime → **GPU (T4 or better)**
+- Open `Machine_Translation_Final.ipynb` in Colab
+- Set Runtime → **GPU (T4 or better)** — model is 418M params
 - Run all cells
 
-### 4. Run locally
-```bash
-python model/transformer.py
-```
+---
+
+## 📊 Evaluation — Dual Metric System
+
+This project evaluates translation quality using **two complementary metrics:**
+
+| Metric | Method | What it measures |
+|--------|--------|-----------------|
+| BLEU Score | `nltk.translate.bleu_score` | n-gram overlap with reference |
+| Embedding Similarity | Cosine via `all-MiniLM-L6-v2` | Semantic meaning preservation |
+
+> BLEU alone misses paraphrase quality — combining with embedding similarity gives a more complete picture of translation accuracy.
 
 ---
 
-## 📊 Results
+## 🔑 Key Features
 
-| Training Setup | Epoch Time | BLEU Score |
-|----------------|------------|------------|
-| CPU only | ~45 min/epoch | baseline |
-| CUDA GPU | ~18 min/epoch | improved |
-| + Hugging Face tokenizers | ~18 min/epoch | best |
-
-> CUDA-accelerated training reduced epoch time by **~60%** compared to CPU baseline.
+- ✅ `facebook/m2m100_418M` — 418M parameter multilingual model (100+ languages)
+- ✅ Paragraph-level translation with sentence segmentation
+- ✅ Dual evaluation: BLEU Score + Semantic Similarity (cosine)
+- ✅ Interactive CLI menu for real-time translation & evaluation
+- ✅ Execution time measurement per translation
+- ✅ Hindi language support — relevant for Indian NLP applications
+- ✅ Language detection via `langdetect`
 
 ---
 
-## 🔑 Key Concepts Implemented
+## 🔮 Future Improvements
 
-- ✅ Multi-head self-attention from scratch
-- ✅ Positional encoding
-- ✅ Encoder-decoder architecture
-- ✅ Masked attention in decoder
-- ✅ Hugging Face multilingual tokenizers (mBART / Helsinki-NLP)
-- ✅ BLEU score evaluation
-- ✅ CUDA-accelerated training
+- [ ] Fine-tune M2M100 on domain-specific corpus (medical / legal)
+- [ ] Add FastAPI / Gradio web interface for live demo
+- [ ] Extend evaluation with METEOR and chrF scores
+- [ ] Batch translation support for large documents
 
 ---
 

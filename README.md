@@ -130,7 +130,7 @@ This project evaluates translation quality using **two complementary metrics:**
 ## 👩‍💻 Author
 
 **Chhavi Awasthi**
-M.Tech — Mathematics & Computing, IIT (ISM) Dhanbad
+M.Tech — Data Analytics, IIT (ISM) Dhanbad
 CSIR NET AIR 35 | GATE Mathematics AIR 197
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-chhaviawasthi-blue)](https://linkedin.com/in/chhaviawasthi)

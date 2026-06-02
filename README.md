@@ -65,9 +65,8 @@ Embedding Similarity: 0.9134
 
 ```
 multilingual-nmt/
-│
-├── Machine_Translation_Final.ipynb   # Main Colab notebook
-├── requirements.txt
+│  
+├── PROJECT.pdf  # Main Code
 └── README.md
 ```
 
